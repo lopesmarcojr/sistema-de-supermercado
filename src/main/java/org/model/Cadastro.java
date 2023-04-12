@@ -29,7 +29,6 @@ public class Cadastro implements Serializable {
     public Cadastro(){
 
     }
-
     public Integer getId() {
         return id;
     }
