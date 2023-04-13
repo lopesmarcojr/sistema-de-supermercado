@@ -6,11 +6,12 @@ import org.model.Cliente;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.xml.crypto.Data;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class DaoCadastro implements Serializable {
 
@@ -40,13 +41,16 @@ public class DaoCadastro implements Serializable {
         int numeroDeSegurança = random.nextInt(999);
         double limite = 1000;
         String bandeira = "Padrão";
+        Data validadeDoCartao = null;
         if(Integer.parseInt(primeiraSecao.substring(0)) == 4){
             bandeira = "Visa";
         }
         if(Integer.parseInt(primeiraSecao.substring(0,2)) >= 51 && 55 <= Integer.parseInt(primeiraSecao.substring(0,2))){
             bandeira = "Mastercard";
         }
-        CartaoDeCredito cartaoDeCredito = new CartaoDeCredito(null, );
-
+        Random randomMonths = ThreadLocalRandom.current();
+        LocalDateTime date = LocalDateTime.now().plusMonths(randomMonths.nextInt(365) + 1);
+        java.util.Date data = Date.from(date.atZone(ZoneId.of("America/Sao_Paulo")).toInstant());
+        CartaoDeCredito cartaoDeCredito = new CartaoDeCredito(null, limite, bandeira, numeroDoCartao, numeroDeSegurança, data);
     }
 }
