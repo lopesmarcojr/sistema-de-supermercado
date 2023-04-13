@@ -18,8 +18,7 @@ public class DaoCadastro implements Serializable {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo-jpa");
     EntityManager em = emf.createEntityManager();
     List<Cliente> clientes = new ArrayList<>();
-
-
+    Scanner sc = new Scanner(System.in);
     public void cadastrarNovoCliente(String nome, String cpf, String email){
         Cliente cliente  = new Cliente(null, nome, cpf, email);
         em.getTransaction().begin();
@@ -29,7 +28,6 @@ public class DaoCadastro implements Serializable {
         em.close();
         emf.close();
     }
-
     public void cadastrarNovoCartão(){
         Random random = new Random();
         long numeroDoCartao = Math.abs(random.nextLong());
@@ -52,5 +50,54 @@ public class DaoCadastro implements Serializable {
         LocalDateTime date = LocalDateTime.now().plusMonths(randomMonths.nextInt(365) + 1);
         java.util.Date data = Date.from(date.atZone(ZoneId.of("America/Sao_Paulo")).toInstant());
         CartaoDeCredito cartaoDeCredito = new CartaoDeCredito(null, limite, bandeira, numeroDoCartao, numeroDeSegurança, data);
+    }
+    public void atualizarDadosCadastrais(String cpf){
+        em.getTransaction().begin();
+        Cliente cliente = em.find(Cliente.class,cpf);
+        if(cliente.equals(null)){
+            System.out.println("Cliente não encontrado no sistema");
+        }
+        else{
+            System.out.println("Nome: ");
+            String nome = sc.next();
+            System.out.println("CPF: ");
+            String cpfCliente = sc.next();
+            System.out.println("Email: ");
+            String email = sc.next();
+            cliente.setNome(nome);
+            cliente.setEmail(email);
+            cliente.setCpf(cpf);
+            em.getTransaction().commit();
+            em.close();
+            emf.close();
+        }
+    }
+    public void consultarCliente(String cpf){
+        em.getTransaction().begin();
+        Cliente cliente = em.find(Cliente.class,cpf);
+        if(cliente.equals(null)){
+            System.out.println("Cliente não encontrado no sistema");
+        }
+        else{
+            System.out.println(cliente.getNome());
+            System.out.println(cliente.getCpf());
+            System.out.println(cliente.getEmail());
+        }
+    }
+    public void removerCliente(String cpf){
+        em.getTransaction().begin();
+        Cliente cliente = em.find(Cliente.class,cpf);
+        if(cliente.equals(null)){
+            System.out.println("Cliente não encontrado no sistema");
+        }
+        else{
+            em.remove(cliente);
+            em.getTransaction().commit();
+        }
+        em.close();
+        emf.close();
+    }
+    public void associarCartaoCliente(){
+
     }
 }
