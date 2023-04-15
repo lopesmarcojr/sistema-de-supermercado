@@ -14,12 +14,12 @@ public class Produto implements Serializable {
     @GeneratedValue
     private Integer id;
     private String descricao;
-    private String identificação;
+    private int identificação;
 
     public Produto() {
     }
 
-    public Produto(Integer id, String descricao, String identificação) {
+    public Produto(Integer id, String descricao, int identificação) {
         this.id = id;
         this.descricao = descricao;
         this.identificação = identificação;
@@ -40,11 +40,11 @@ public class Produto implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getIdentificação() {
+    public int getIdentificação() {
         return identificação;
     }
 
-    public void setIdentificação(String identificação) {
+    public void setIdentificação(int identificação) {
         this.identificação = identificação;
     }
 

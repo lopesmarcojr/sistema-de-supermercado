@@ -28,28 +28,25 @@ public class DaoCadastro implements Serializable {
         em.close();
         emf.close();
     }
-    public void cadastrarNovoCartão(){
+    public void cadastrarNovoCartão(String cpf){
         Random random = new Random();
         long numeroDoCartao = Math.abs(random.nextLong());
-        String numero = String.valueOf(numeroDoCartao);
-        String primeiraSecao = numero.substring(0,4);
-        String segundaSecao = numero.substring(4,8);
-        String terceiraSecao = numero.substring(9,13);
-        String quartaSecao = numero.substring(14,18);
         int numeroDeSegurança = random.nextInt(999);
         double limite = 1000;
-        String bandeira = "Padrão";
+        String bandeira = "Mastercard";
         Data validadeDoCartao = null;
-        if(Integer.parseInt(primeiraSecao.substring(0)) == 4){
-            bandeira = "Visa";
-        }
-        if(Integer.parseInt(primeiraSecao.substring(0,2)) >= 51 && 55 <= Integer.parseInt(primeiraSecao.substring(0,2))){
-            bandeira = "Mastercard";
-        }
         Random randomMonths = ThreadLocalRandom.current();
         LocalDateTime date = LocalDateTime.now().plusMonths(randomMonths.nextInt(365) + 1);
         java.util.Date data = Date.from(date.atZone(ZoneId.of("America/Sao_Paulo")).toInstant());
         CartaoDeCredito cartaoDeCredito = new CartaoDeCredito(null, limite, bandeira, numeroDoCartao, numeroDeSegurança, data);
+        em.getTransaction().begin();
+        Cliente cliente = em.find(Cliente.class, cpf);
+        if(cliente.equals(null)){
+            System.out.println("Não é possível cadastrar esse cartão ao cliente, pois o cliente não existe");
+        }
+        else{
+            cliente.setCartaoDeCredito(cartaoDeCredito);
+        }
     }
     public void atualizarDadosCadastrais(String cpf){
         em.getTransaction().begin();
@@ -97,7 +94,7 @@ public class DaoCadastro implements Serializable {
         em.close();
         emf.close();
     }
-    public void associarCartaoCliente(){
+    public void cancelarCartao(){
 
     }
 }

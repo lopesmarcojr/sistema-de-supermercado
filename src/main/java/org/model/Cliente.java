@@ -60,8 +60,17 @@ public class Cliente implements Serializable {
         this.email = email;
     }
 
+    public CartaoDeCredito getCartaoDeCredito() {
+        return cartaoDeCredito;
+    }
+
+    public void setCartaoDeCredito(CartaoDeCredito cartaoDeCredito) {
+        this.cartaoDeCredito = cartaoDeCredito;
+    }
+
     public String toString(){
         return id + " " + nome + " " + email + " " + cpf;
     }
+
 }
 
