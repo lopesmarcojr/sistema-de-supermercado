@@ -2,10 +2,13 @@ package org.dao;
 
 import jdk.swing.interop.SwingInterOpUtils;
 import org.model.Estoquista;
+import org.model.Produto;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class DaoEstoquista {
@@ -13,6 +16,8 @@ public class DaoEstoquista {
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("exemplo-jpa");
     EntityManager em = emf.createEntityManager();
     Scanner sc = new Scanner(System.in);
+
+    List<Produto> produtoList = new ArrayList<>();
 
     public void cadastrarNovoEstoquista(Integer matricula, String nome, String cpf, String email){
         Estoquista estoquista = new Estoquista(null, matricula, nome, cpf, email);
@@ -72,6 +77,15 @@ public class DaoEstoquista {
         em.close();
         emf.close();
     }
-
+    public void checarProduto(int identificacao){
+        em.getTransaction().begin();
+        Produto p = em.find(Produto.class, identificacao);
+        if(p.equals(null)){
+            System.out.println("Produto não cadastrado");
+        }
+        else{
+            System.out.println(p);
+        }
+    }
 
 }

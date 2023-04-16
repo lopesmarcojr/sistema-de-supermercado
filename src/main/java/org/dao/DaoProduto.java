@@ -34,5 +34,8 @@ public class DaoProduto {
         for(Produto p : produtos){
             System.out.println(p);
         }
+        for(Produto prod : produtos){
+            System.out.println(prod);
+        }
     }
 }
