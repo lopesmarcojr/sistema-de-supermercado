@@ -38,4 +38,16 @@ public class DaoProduto {
             System.out.println(prod);
         }
     }
+    public void checarProduto(int identificacao){
+        em.getTransaction().begin();
+        Produto p = em.find(Produto.class, identificacao);
+        if(p.equals(null)){
+            System.out.println("Produto não cadastrado");
+        }
+        else{
+            System.out.println(p);
+        }
+        em.close();
+        emf.close();
+    }
 }

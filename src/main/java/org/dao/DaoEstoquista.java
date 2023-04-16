@@ -17,8 +17,6 @@ public class DaoEstoquista {
     EntityManager em = emf.createEntityManager();
     Scanner sc = new Scanner(System.in);
 
-    List<Produto> produtoList = new ArrayList<>();
-
     public void cadastrarNovoEstoquista(Integer matricula, String nome, String cpf, String email){
         Estoquista estoquista = new Estoquista(null, matricula, nome, cpf, email);
         em.getTransaction().begin();
@@ -38,6 +36,10 @@ public class DaoEstoquista {
             System.out.println(estoquista.getMatricula());
             System.out.println(estoquista.getEmail());
         }
+    }
+
+    public void listarEstoquistas(){
+
     }
     public void atualizarDadosDeEstoquista(Integer matricula){
         em.getTransaction().begin();
@@ -77,15 +79,4 @@ public class DaoEstoquista {
         em.close();
         emf.close();
     }
-    public void checarProduto(int identificacao){
-        em.getTransaction().begin();
-        Produto p = em.find(Produto.class, identificacao);
-        if(p.equals(null)){
-            System.out.println("Produto não cadastrado");
-        }
-        else{
-            System.out.println(p);
-        }
-    }
-
 }

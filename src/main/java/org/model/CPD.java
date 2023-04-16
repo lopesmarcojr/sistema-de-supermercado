@@ -1,14 +1,13 @@
 package org.model;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.io.Serializable;
 
 public class CPD implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer matricula;
     private String nome;
@@ -64,5 +63,16 @@ public class CPD implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "CPD - " +
+                "ID: " + id +
+                ", Matricula: " + matricula +
+                ", Nome: " + nome + '\'' +
+                ", CPF: " + cpf + '\'' +
+                ", eMAIL: " + email + '\'' +
+                '}';
     }
 }
