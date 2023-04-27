@@ -1,9 +1,6 @@
 package org.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,24 +12,27 @@ public class CartaoDeCredito implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private Cliente cliente;
     private double limiteDeCredito;
     private String bandeira;
     private Long numero;
     private int codigoDeSeguranca;
     private Date dataDeValidade;
+    @OneToOne
+    @MapsId
+    private Cliente cliente;
 
     public CartaoDeCredito(){
 
     }
 
-    public CartaoDeCredito(Integer id, double limiteDeCredito, String bandeira, Long numero, int codigoDeSeguranca, Date dataDeValidade) {
+    public CartaoDeCredito(Integer id, double limiteDeCredito, String bandeira, Long numero, int codigoDeSeguranca, Date dataDeValidade, Cliente cliente) {
         this.id = id;
         this.limiteDeCredito = limiteDeCredito;
         this.bandeira = bandeira;
         this.numero = numero;
         this.codigoDeSeguranca = codigoDeSeguranca;
         this.dataDeValidade = dataDeValidade;
+        this.cliente = cliente;
     }
 
     public Integer getId() {
@@ -90,4 +90,6 @@ public class CartaoDeCredito implements Serializable {
     public void setDataDeValidade(Date dataDeValidade) {
         this.dataDeValidade = dataDeValidade;
     }
+
+
 }

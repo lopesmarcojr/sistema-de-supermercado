@@ -1,16 +1,9 @@
 package org.example;
 
 
-
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-
 public class Main {
     public static void main(String[] args) {
-        Random random = new Random();
+        /*Random random = new Random();
         long numeroDoCartao = Math.abs(random.nextLong());
         String numero = String.valueOf(numeroDoCartao);
         String primeiraSecao = numero.substring(0,4);
@@ -26,6 +19,14 @@ public class Main {
         Random randomMonths = ThreadLocalRandom.current();
         LocalDateTime date = LocalDateTime.now().plusMonths(randomMonths.nextInt(365) + 1);
         Date data = Date.from(date.atZone(ZoneId.of("America/Sao_Paulo")).toInstant());
-        System.out.println(data);
+        System.out.println(data);*/
+
+
+        //daoCadastro.cadastrarNovoCliente(null,"Marco Aurélio","16570970720","marco@gmail.com", 165);
+        //daoCadastro.cadastrarNovoCliente(null, "Érika dos Santos", "123456789","erika@gmail.com", 123);
+        //daoCadastro.consultarCliente("16570970720");
+
+
+
     }
 }

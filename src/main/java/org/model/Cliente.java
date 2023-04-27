@@ -1,9 +1,6 @@
 package org.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -17,16 +14,19 @@ public class Cliente implements Serializable {
     private String nome;
     private String cpf;
     private String email;
+    private int registro;
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
     private CartaoDeCredito cartaoDeCredito;
     public Cliente(){
 
     }
 
-    public Cliente(Integer id, String nome, String cpf, String email) {
+    public Cliente(Integer id, String nome, String cpf, String email, int registro) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
+        this.registro = registro;
     }
 
     public int getId() {
@@ -60,6 +60,13 @@ public class Cliente implements Serializable {
         this.email = email;
     }
 
+    public int getRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(int registro) {
+        this.registro = registro;
+    }
     public CartaoDeCredito getCartaoDeCredito() {
         return cartaoDeCredito;
     }
